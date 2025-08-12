@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+html {
+  height: 100%;
+  overflow: hidden;
+  
+}
+
+body {
+  background: black;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#header-container {
+  position: relative;
+}
+
+#overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  /*color: rgb(191, 228, 196);*/
+  color: #0dff0d;
+  font-family: 'VT323', monospace;
+  font-size: larger;
+  font-weight: bold;
+  text-align: center;
+  padding: 30px;
+  background-color: rgba(0, 255, 0, 0.16);
+  border-radius: 12px;
+}
+
+.fade-in {
+  animation: text-fade 3s ease-in-out alternate;
+}
+
+
+#btnStart {
+  font-size: large;
+  margin: 12px;
+  padding: 12px;
+  color: rgb(255, 255, 255);
+  background-color: rgba(0, 255, 0, 0.25);
+  border-radius: 12px;
+}
+
+#terminal-container {
+
+  background: #000;
+  color: #0dff0d; /* A brighter, more vibrant green */
+  font-family: 'VT323', monospace; /* THE most important change */
+  font-size: 1.2rem; /* Larger, more readable font */
+  text-shadow: 0 0 5px #0dff0d; /* Creates the retro glow effect */
+
+  /* Layout */
+  height: 100vh; /* Use viewport height to fill the screen reliably */
+  overflow-y: scroll; /* Allows scrolling only when content exceeds screen height */
+  padding: 15px;
+  box-sizing: border-box; /* Ensures padding doesn't break the 100% height */
+
+}
+
+#terminal-container::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  z-index: 2;
+  pointer-events: none; /* Allows you to click through the overlay */
+}
+
+#terminal-output pre, #terminal-storyline pre {
+  margin: 0; /* Remove default margins */
+  white-space: pre-wrap; /* Allows long lines to wrap */
+  word-wrap: break-word;
+}
+
+#terminal-title pre {
+    line-height: 0.8; /* Tighten up the ASCII art lines */
+}
+
+#active-line {
+  display: flex; /* Aligns prompt, input, and cursor nicely */
+  align-items: center;
+}
+
+/* This is the prompt text: "agent$terminal:" */
+#active-line > span {
+  white-space: nowrap; /* Prevents the prompt from wrapping */
+  margin-right: 8px;
+}
+
+#terminal-input{
+
+  /* Make the input field itself invisible */
+  background: transparent;
+  border: none;
+  outline: none;
+
+  /* Match the terminal's font styling */
+  color: inherit; /* Inherits the green color from the container */
+  font-family: inherit;
+  font-size: inherit;
+  text-shadow: inherit;
+
+  /* Functionality */
+  flex-grow: 1; /* Allows the input to fill the remaining space */
+  padding: 0;
+  margin: 0;
+}
+
+.cursor {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: #0dff0d; /* Same color as text */
+  }
+}
+
+/* --- Scrollbar Styling (Bonus) --- */
+/* For a more thematic scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0dff0d;
+  box-shadow: 0 0 5px #0dff0d;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
+
+@keyframes text-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
