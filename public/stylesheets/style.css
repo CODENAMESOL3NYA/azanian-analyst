@@ -12,6 +12,11 @@ body {
   padding: 0;
   height: 100%;
 }
+.header{
+  background-color: #000;
+  border-bottom: solid 4px #0dff0d;
+   
+}
 
 #header-container {
   position: relative;
@@ -23,7 +28,6 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
-  /*color: rgb(191, 228, 196);*/
   color: #0dff0d;
   font-family: 'VT323', monospace;
   font-size: larger;
