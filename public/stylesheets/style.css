@@ -42,14 +42,20 @@ body {
   animation: text-fade 3s ease-in-out alternate;
 }
 
+#header-links{
+  font-size:larger;
+  font-family: 'VT323', monospace;
+}
+.nav-links-hover:hover{
+  border-bottom:1px solid #0dff0d;
+  color:#0dff0d;
 
+}
 #btnStart {
-  font-size: large;
-  margin: 12px;
-  padding: 12px;
   color: rgb(255, 255, 255);
   background-color: rgba(0, 255, 0, 0.25);
   border-radius: 12px;
+  border:1px solid #FFF;
 }
 
 #terminal-container {
