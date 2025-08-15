@@ -32,10 +32,19 @@
     <div class="matrix-loader">
         <canvas id="matrix"></canvas>
     </div>
-    <div id="overlay">
-        <h1 class="fade-in">{{message}}</h1>
-        <h2 class="fade-in">{{error.status}}</h2>
-        <p class="fade-in">SORRY SOMETHING WENT WRONG AGENT</p>
+    <div id="overlay" class="fade-in">
+        <h1 >[ITS NOT OVER]</h1>
+        <hr>
+        <h2>You live to fight another day.</h2>
+        <p >Go train and try again.</p>
+        <hr>
+        <h3 >RESOURCES</h3>
+        <a class="green-links" href="https://www.theodinproject.com/">The Odin Project</a>
+        <a class="green-links" href="https://free-for.dev/#/">Free For Dev</a>
+        <a class="green-links" href="https://freecodecamp.org/">freeCodeCamp</a>
+        <a class="green-links" href="https://pll.harvard.edu/subject/computer-science">Harvard</a>
+        <hr>
+        <button id="btnStart"  class="btn btn-lg btnStyle" >Retry</button>
         <button  class="btn btn-lg btnStyle" onclick="homeLink()">Back</button>
     </div>
 </div>
@@ -47,6 +56,5 @@
     
   </div>
 </footer>
-
 <script src="/javascripts/matrix.js"></script>
 <script src="/javascripts/main.js"></script>

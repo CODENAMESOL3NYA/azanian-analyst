@@ -1,76 +1,129 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 html {
+  margin: 0;
+  padding: 0;
   height: 100%;
-  overflow: hidden;
+  scroll-padding-top: 100px;
   
 }
 
 body {
   background: black;
-  margin: 0;
-  padding: 0;
-  height: 100%;
+  font-family: 'VT323', monospace;
+  font-size: large;
+  
 }
 .header{
   background-color: #000;
   border-bottom: solid 4px #0dff0d;
+  /*flex-shrink: 0;*/ 
    
+}
+.fixed-footer{
+  background-color: #000;
+  border-top: solid 4px #0dff0d;
+  color:#0dff0d;
+  text-align: center;
+  /*flex-shrink: 0;*/
 }
 
 #header-container {
   position: relative;
 }
+#container{
+  
+  position: relative; 
+  width: 100%;
+  height: 100vh; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; 
+  border-bottom: solid 4px #0dff0d;
+}
+
+
+#matrix {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; 
+}
+
+#matrix-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
 
 #overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: static;
   z-index: 1;
   color: #0dff0d;
   font-family: 'VT323', monospace;
-  font-size: larger;
-  font-weight: bold;
   text-align: center;
-  padding: 30px;
-  background-color: rgba(0, 255, 0, 0.16);
+  padding: 48px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid #0dff0d;
   border-radius: 12px;
 }
 
 .fade-in {
-  animation: text-fade 3s ease-in-out alternate;
+  animation: text-fade 4s ease-in-out alternate;
 }
 
-#header-links{
+.green-links{
+  text-decoration: none;
   font-size:larger;
   font-family: 'VT323', monospace;
+  color:#0dff0d;
+  padding:4px;
+  margin:4px;
+}
+.green-links:hover{
+  text-decoration: none;
+  font-size:larger;
+  font-family: 'VT323', monospace;
+  color:#0acc0a;
+  padding:4px;
+  margin:4px;
+  border-bottom: solid 2px #0dff0d;
+  border-top: solid 2px #0dff0d;
 }
 .nav-links-hover:hover{
   border-bottom:1px solid #0dff0d;
   color:#0dff0d;
 
 }
-#btnStart {
+.btnStyle {
   color: rgb(255, 255, 255);
   background-color: rgba(0, 255, 0, 0.25);
   border-radius: 12px;
   border:1px solid #FFF;
+  z-index:2;
+}
+.btnStyle:hover{
+  color: rgb(255, 255, 255);
+  background-color: rgba(0, 255, 0, 0.5);
+  border-radius: 12px;
+  border:1px solid #0dff0d;
+
 }
 
 #terminal-container {
-
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   background: #000;
-  color: #0dff0d; /* A brighter, more vibrant green */
-  font-family: 'VT323', monospace; /* THE most important change */
-  font-size: 1.2rem; /* Larger, more readable font */
-  text-shadow: 0 0 5px #0dff0d; /* Creates the retro glow effect */
-
-  /* Layout */
-  height: 100vh; /* Use viewport height to fill the screen reliably */
-  overflow-y: scroll; /* Allows scrolling only when content exceeds screen height */
+  color: #0dff0d; 
+  font-family: 'VT323', monospace;
+  font-size: 1.2rem; 
+  text-shadow: 0 0 5px #0dff0d; 
   padding: 15px;
-  box-sizing: border-box; /* Ensures padding doesn't break the 100% height */
+  box-sizing: border-box; 
 
 }
 
@@ -89,46 +142,49 @@ body {
     transparent 1px,
     transparent 3px
   );
-  z-index: 2;
-  pointer-events: none; /* Allows you to click through the overlay */
+  z-index: 1;
+  pointer-events: none; 
+}
+
+#terminal-content {
+  flex-grow: 1; 
+  overflow-y: auto; 
 }
 
 #terminal-output pre, #terminal-storyline pre {
-  margin: 0; /* Remove default margins */
-  white-space: pre-wrap; /* Allows long lines to wrap */
+  margin: 0; 
+  white-space: pre-wrap; 
   word-wrap: break-word;
 }
 
 #terminal-title pre {
-    line-height: 0.8; /* Tighten up the ASCII art lines */
+    line-height: 0.8;
 }
 
 #active-line {
-  display: flex; /* Aligns prompt, input, and cursor nicely */
-  align-items: center;
+  flex-shrink: 0;
 }
 
-/* This is the prompt text: "agent$terminal:" */
+
 #active-line > span {
-  white-space: nowrap; /* Prevents the prompt from wrapping */
+  white-space: nowrap;
   margin-right: 8px;
 }
 
 #terminal-input{
 
-  /* Make the input field itself invisible */
   background: transparent;
   border: none;
   outline: none;
 
-  /* Match the terminal's font styling */
-  color: inherit; /* Inherits the green color from the container */
+  
+  color: inherit;
   font-family: inherit;
   font-size: inherit;
   text-shadow: inherit;
 
-  /* Functionality */
-  flex-grow: 1; /* Allows the input to fill the remaining space */
+  
+  width: 80%;
   padding: 0;
   margin: 0;
 }
@@ -142,27 +198,19 @@ body {
     color: transparent;
   }
   50% {
-    color: #0dff0d; /* Same color as text */
+    color: #0dff0d;
   }
 }
 
-/* --- Scrollbar Styling (Bonus) --- */
-/* For a more thematic scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+#about{
+  color:#0dff0d;
 }
 
-::-webkit-scrollbar-track {
-  background: #111;
-}
+.box{
+  color:#0dff0d;
+  border: 1px solid #0acc0a;
+  border-radius: 12px;
 
-::-webkit-scrollbar-thumb {
-  background: #0dff0d;
-  box-shadow: 0 0 5px #0dff0d;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #fff;
 }
 
 @keyframes text-fade {

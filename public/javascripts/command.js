@@ -4,15 +4,17 @@
 
 const menu = `
 =================================================================================
-                COMMANDS
+COMMANDS
 =================================================================================
   help          List of all the command available
   start         Start Decrytping
-  levels        Show all levels
+  levels        Set game difficulty
+  rounds        Set game rounds
   exit          Close the terminal
 =================================================================================
-                USAGE
+USAGE
 =================================================================================
+
 HELP)
 usage: help
 
@@ -22,6 +24,10 @@ usage: start
 usage: start arg1 (arg1 is the subject matter eg "html")
 
 LEVELS)
+Valid levels [1,2,3,4]
+usage: levels = arg1 (where arg1 is the level)
+
+ROUNDS)
 Valid levels [1,2,3,4]
 usage: levels = arg1 (where arg1 is the level)
 
@@ -47,7 +53,7 @@ async function command(cmd) {
     case "start":
       let topic = parsed.args[0] || "HTML, CSS, JS & PYTHON";
 
-      let url = `${window.location.href}/load?topic=${topic}&difficulty=${gameState.difficulty}`;
+      let url = `${window.location.href}/load?topic=${topic}&difficulty=${gameState.difficulty}&rounds=${gameState.rounds}`;
 
       try {
         const response = await fetch(url, { method: "GET" });
@@ -88,6 +94,19 @@ async function command(cmd) {
         }
       }
       break;
+    case "rounds":
+      if(parsed.args.length===0){
+        result = rounds();
+      }else{
+        const rounds = parseInt(parsed.args[0]);
+        if(rounds > 0 && rounds <=100){
+          gameState.rounds=rounds;
+          result = `Rounds set to ${gameState.rounds}`;
+        }else{
+          result =`Error: Invalid rounds. Please choose a number between 1 and 100.`;
+        }
+      }
+      break;
 
     case "exit":
       exit();
@@ -121,6 +140,14 @@ async function levels() {
   return `
   usage: levels = 1 
   Valid values = 1,2,3,4`;
+}
+
+async function rounds(){
+  return `
+  Usage: rounds = 1
+  Defualt rounds = 10 
+  Valid values = any number from 1 to 100`
+  
 }
 
 function exit() {

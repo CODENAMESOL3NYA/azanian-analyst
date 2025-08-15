@@ -1,4 +1,4 @@
-const canvas = document.getElementById('Matrix');
+const canvas = document.getElementById('matrix');
 const context = canvas.getContext('2d');
 
 canvas.width = window.innerWidth;
@@ -68,7 +68,7 @@ const draw =()=>{
 
 setInterval(draw,30);
 
-const button =document.getElementById('btnStart');
-button.addEventListener('click',(e)=>{
-  window.open('/game','_self');
-})
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});

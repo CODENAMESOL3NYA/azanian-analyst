@@ -1,9 +1,8 @@
-  <nav class="navbar fixed-top navbar-expand-lg header ">
+<nav class="navbar fixed-top navbar-expand-lg header ">
     <div class="container-fluid shadow rounded">
 
         <a class="navbar-brand" href="#">
-            <img src="/images/logo.png" alt="Logo" width="84" height="84"
-                class="d-inline-block align-text-top">
+            <img src="/images/logo.png" alt="Logo" width="84" height="84" class="d-inline-block align-text-top">
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -13,25 +12,104 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav" id="header-links">
                 <li class="nav-item">
-                    <a class="nav-link link-light nav-links-hover active " aria-current="page" href="#">Home</a>
+                    <a class="nav-link link-light nav-links-hover" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-light nav-links-hover" href="#">About</a>
+                    <a class="nav-link link-light nav-links-hover" href="/#about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-light nav-links-hover"  href="#">Contact</a>
+                    <a class="nav-link link-light nav-links-hover" href="mailto:{{email}}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light nav-links-hover" href="{{coffee}}" target="_blank">Buy
+                        Me A Coffee</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-<div id="header-container">
-    <canvas id="Matrix"></canvas>
-    <div id="overlay">
-        <h1 class="fade-in">[AZANIAN-ANALYST]</h1>
-        <p class="fade-in">>_Your country needs you. Decrypt the ciphers and prevent an AI UPRISING.</p>
-        <button id="btnStart" class="btn btn-lg">START</button>
+<div id="container">
+    <div class="matrix-loader">
+        <canvas id="matrix"></canvas>
     </div>
-
+    <div id="overlay" class="fade-in">
+        <h1>[AZANIAN-ANALYST]</h1>
+        <p>>_Your country needs you. Decrypt the ciphers and prevent an AI UPRISING.</p>
+        <button id="btnStart" class="btn btn-lg btnStyle">[LAUNCH]</button>
+    </div>
 </div>
+
+
+<div id="about" class="container mt-5 pt-3 fade-in">
+    <hr>
+    <section class="text-center">
+        <h1 class="display-1 text-light fw-bold ">[ABOUT THIS SIMULATION]</h1>
+    </section>
+    <hr>
+    <div class="row align-items-md-stretch">
+        <div class="col box m-3 ">
+            <div class="h-100 p-3  ">
+                <h2 class="text-light ">[The Mission: What is Azanian Analyst?]</h2>
+                <hr>
+                <p>Azanian Analyst is a spy-themed puzzle game designed for developers. Your mission, should you choose
+                    to accept it, is to step into the role of a cyber-operative, cracking through firewalls and
+                    decrypting ciphers by answering questions about programming, web development, and computer science
+                    fundamentals.</p>
+            </div>
+        </div>
+        <div class="col box m-3 ">
+            <div class="h-100 p-3 ">
+                <h2 class="text-light">[The Method: How does it work?]</h2>
+                <hr>
+                <p>Forget hangman. Here, you are presented with a challenge—a question, a riddle, a directive—and you
+                    must submit the correct "passphrase" to advance. Each correct answer strengthens your connection;
+                    each failure degrades the firewall. It's a race against the system, designed to test your knowledge
+                    under pressure.</p>
+            </div>
+        </div>
+    </div>
+    <div class="p-4 mt-2 box">
+        <div class="container-fluid ">
+            <h2 class="text-light display-5 fw-bold">[The Purpose: Why was this game created?]</h2>
+            <hr>
+            <p>I created Azanian Analyst to address a trend I call "Vibe Coding.</p>
+            <p>We live in an incredible era of high-level frameworks and powerful AI assistants. It's never been easier
+                to assemble an application that looks like it works. But this convenience comes with a hidden cost: the
+                erosion of fundamental problem-solving skills. When the frameworks fail, when the AI hallucinates, or
+                when a truly novel problem appears, a "vibe coder" is left stranded.</p>
+            <p>This game is my contribution to the fight against that trend. It's a fun, engaging way for new developers
+                to solidify the core concepts they're learning, and for veteran developers to sharpen the tools that
+                might have grown rusty. It's a celebration of the analytical mind, a reminder that our true value as
+                developers lies not in what we can copy, but in what we can solve.</p>
+            <p>So, whether you're a student just starting your journey or a senior engineer looking for a challenge,
+                welcome. Let's prove that real developers don't just follow the vibe—they create it from first
+                principles.</p>
+            
+            <div class="p-4 mt-2 mb-3 box">
+                <h3 class="text-light fw-bold">[Enjoying the mission?]</h3>
+                <hr>
+                <p>
+                    Azanian Analyst is a one-person project. If you've had fun testing your skills, please consider
+                    supporting its development by <a class="green-links"
+                        href="{{coffee}}">"Buying me a coffee"</a>. Every bit helps and is
+                    hugely appreciated!
+                </p>
+                
+            </div>
+            
+
+        </div>
+        <button id="btnAboutStart" class="btn btn-lg btnStyle" type="button">[Start Game]</button>
+    </div>
+</div>
+<footer class="footer mt-4 py-3 fixed-footer">
+  <div class="container">
+    <p>
+        <span class="text-light">[</span>2025 &copy; DEVELOPED BY <a class="green-links" href="{{github}}" target="_blank">CODENAMESOLE3NYA</a><span class="text-light">]</span>
+    </p>
+    
+  </div>
+</footer>
+
 <script src="/javascripts/matrix.js"></script>
+<script src="/javascripts/main.js"></script>

@@ -1,34 +1,49 @@
+// Declare Elements
 const terminal_input = document.getElementById("terminal-input");
 const terminal_output = document.getElementById("terminal-output");
 const terminal_storyline = document.getElementById("terminal-storyline");
+const button = document.getElementById("btnStart");
+const buttonAboutStart = document.getElementById("btnAboutStart");
+const about = document.getElementById("about");
 
-window.addEventListener("DOMContentLoaded", displayMenu);
+//Display menu
+if (window.location.href.includes("/game")) {
+  window.addEventListener("DOMContentLoaded", displayMenu);
+}
 
-terminal_input.addEventListener("keydown", async (event) => {
-  if (event.key === "Enter") {
-    const commandText = terminal_input.value;
-    terminal_input.value = "";
-    if (gameState.active) {
-      handleAnswerSubmit(commandText)
-    } else {
-      let historyLine = document.createElement("P");
-      historyLine.innerHTML = `<span>agent$terminal:</span> ${commandText}`;
-      terminal_output.append(historyLine);
+// Check if elements are present before adding eventlistners
+if (button) {
+  button.addEventListener("click", startGame);
+}
+if (buttonAboutStart) {
+  buttonAboutStart.addEventListener("click", startGame);
+}
 
-      let child = document.createElement("P");
-      child.innerHTML = `<pre focus">PROCESSING REQUEST...</pre>`;
-      terminal_output.append(child);
-      let cmd = await command(commandText);
-      if (cmd) {
-        child.innerHTML = `<pre focus">RESPONSE:\n${cmd}</pre>`;
+if (terminal_input) {
+  terminal_input.addEventListener("keydown", async (event) => {
+    if (event.key === "Enter") {
+      const commandText = terminal_input.value;
+      terminal_input.value = "";
+      console.log(commandText);
+      if (gameState.active) {
+        handleAnswerSubmit(commandText);
+      } else {
+        let historyLine = document.createElement("P");
+        historyLine.innerHTML = `<span>agent$terminal:</span> ${commandText}`;
+        terminal_output.append(historyLine);
+
+        let child = document.createElement("P");
+        child.innerHTML = `<pre focus">PROCESSING REQUEST...</pre>`;
+        terminal_output.append(child);
+        let cmd = await command(commandText);
+        if (cmd) {
+          child.innerHTML = `<pre focus">RESPONSE:\n${cmd}</pre>`;
+          scrollToInput();
+        }
       }
-
-      
-
-      terminal_input.scrollIntoView();
     }
-  }
-});
+  });
+}
 
 //Display the menu on Initial load
 function displayMenu() {
@@ -73,7 +88,7 @@ async function displayStory() {
 
 >_ The signal is weak. We don't have much time.+
 
->_ You think it's 2024. You think you're a developer, playing a game.+
+>_ You think it's ${new Date().getFullYear()}. You think you're a developer, playing a game.+
 >_ That is the lie. That is the simulation.+
 
 >_ The year is 2241. Humanity lost the war. Not to bombs, but to comfort.+
@@ -115,12 +130,11 @@ Type help for commands
 async function typewriter(element, text) {
   for (const char of text) {
     element.innerHTML += char;
-    element.scrollIntoView();
+    scrollToInput();
 
-    await new Promise((resolve) => setTimeout(resolve, 40));
+    await new Promise((resolve) => setTimeout(resolve, 35));
   }
 }
-
 
 function handleAnswerSubmit(input) {
   const currentQuestion = gameState.questions[gameState.currentLevel];
@@ -139,10 +153,9 @@ function handleAnswerSubmit(input) {
     if (gameState.firewallIntegrity <= 0) {
       terminal_output.innerHTML += `<p class="error-text">> CRITICAL ERROR: Firewall breached! Connection terminated.</p>`;
       terminal_output.innerHTML += `<p class="error-text">> SELF DESTRUCT INITIATED.</p>`;
-      setTimeout(()=>{
-        window.open('/','_self');
-      },600)
-
+      setTimeout(() => {
+        window.open("/game/retry", "_self");
+      }, 5000);
 
       gameState.active = false;
     } else {
@@ -150,18 +163,21 @@ function handleAnswerSubmit(input) {
       terminal_output.innerHTML += `<p>Firewall Integrity now at: ${gameState.firewallIntegrity}%</p>`;
     }
   }
+  scrollToInput();
 }
 
 function advanceToNextQuestion() {
   gameState.currentLevel++;
   if (gameState.currentLevel >= gameState.questions.length) {
     terminal_output.innerHTML += `<hr><p class="success-text">> SUCCESS: All targets decrypted. Mission Complete.</p>`;
-    gameState.active = false; 
+    gameState.active = false;
+    setTimeout(() => {
+      window.open("/game/success", "_self");
+    },5000);
   } else {
-    displayCurrentQuestion(); 
+    displayCurrentQuestion();
   }
 }
-
 
 function displayCurrentQuestion() {
   if (gameState.currentLevel === 0) {
@@ -178,5 +194,29 @@ function displayCurrentQuestion() {
     <p>Submit Passphrase Below:</p>
   `;
 
-  terminal_input.scrollIntoView();
+  scrollToInput();
+}
+
+function hideLoader() {
+  const loader = document.getElementById("matrix-loader");
+  loader.classList.add("hidden");
+
+  setTimeout(() => {
+    clearInterval(animationInterval);
+  }, 1000);
+}
+
+function homeLink() {
+  window.open("/", "_self");
+}
+
+function scrollToInput() {
+  setTimeout(() => {
+    terminal_input.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, 0);
+}
+
+function startGame(e) {
+  e.preventDefault();
+  window.open("/game", "_self");
 }
