@@ -25,6 +25,7 @@ if (process.env.NODE_ENV !== "production") {
 
 const app = express();
 
+app.set('trust proxy', 1);
 
 if (process.env.NODE_ENV === "production") {
   app.use(logger("combined"));
@@ -40,9 +41,13 @@ app.use(
   }),
 );
 
+
+
 const limiter = RateLimit({
-  windowMs: 1 * 60 * 1000, 
-  max: 20,
+  windowMs: 15 * 60 * 1000, 
+  max: 100,
+  standardHeaders: true,
+	legacyHeaders: false,
 });
 
 
