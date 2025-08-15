@@ -28,8 +28,8 @@ Valid levels [1,2,3,4]
 usage: levels = arg1 (where arg1 is the level)
 
 ROUNDS)
-Valid levels [1,2,3,4]
-usage: levels = arg1 (where arg1 is the level)
+Valid rounds [1-100]
+usage: rounds = arg1 (where arg1 is the number of rounds)
 
 EXIT)
 usage: exit

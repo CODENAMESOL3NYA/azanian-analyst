@@ -1,6 +1,6 @@
-var express = require("express");
-var router = express.Router();
-var generator = require("../services/generator");
+const express = require("express");
+const router = express.Router();
+const generator = require("../services/generator");
 /* Game. */
 router.get("/", function (req, res, next) {
   res.render("game");

@@ -1,15 +1,50 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const helmet = require('helmet');
+const RateLimit = require("express-rate-limit");
+const dotenv = require('dotenv')
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var gameRouter = require('./routes/game');
-require('dotenv').config();
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const gameRouter = require('./routes/game');
+const compression = require( 'compression' );
 
-var app = express();
+
+
+if (process.env.NODE_ENV !== "production") {
+  try {
+    dotenv.config();
+    console.log("Environment variables loaded successfully.");
+  } catch (error) {
+    console.error("Error loading environment variables:", error);
+  }
+}
+
+const app = express();
+
+
+if (process.env.NODE_ENV === "production") {
+  app.use(logger("combined"));
+} else {
+  app.use(logger("dev"));
+}
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "cdn.jsdelivr.net"],
+    },
+  }),
+);
+
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, 
+  max: 20,
+});
+
 
 
 
@@ -17,8 +52,9 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-app.use(logger('dev'));
 app.use(express.json());
+app.use(compression());
+app.use(limiter);
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
