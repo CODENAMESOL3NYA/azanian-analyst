@@ -1,0 +1,13 @@
+User-agent: *
+
+Disallow: /api/
+Disallow: /load
+
+Disallow: /game/
+Disallow: /game/retry
+Disallow: /game/success
+
+Disallow: 
+
+# Tell crawlers where to find the sitemap for your main pages.
+Sitemap: https://azanian-analyst-p0wscyf7p-codenamesolenya.vercel.app/sitemap.xml
