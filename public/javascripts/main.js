@@ -5,6 +5,9 @@ const terminal_storyline = document.getElementById("terminal-storyline");
 const button = document.getElementById("btnStart");
 const buttonAboutStart = document.getElementById("btnAboutStart");
 const about = document.getElementById("about");
+const homeButton = document.getElementById("btnHome");
+
+
 
 //Display menu
 if (window.location.href.includes("/game")) {
@@ -17,6 +20,10 @@ if (button) {
 }
 if (buttonAboutStart) {
   buttonAboutStart.addEventListener("click", startGame);
+}
+
+if(homeButton){
+  homeButton.addEventListener('click',homeLink);
 }
 
 if (terminal_input) {
@@ -206,7 +213,8 @@ function hideLoader() {
   }, 1000);
 }
 
-function homeLink() {
+function homeLink(e) {
+  e.preventDefault();
   window.open("/", "_self");
 }
 
